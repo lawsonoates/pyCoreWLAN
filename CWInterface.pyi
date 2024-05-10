@@ -4,8 +4,6 @@ from .CoreWLANTypes import *
 from .CWChannel import *
 from .CWNetwork import *
 
-## confirm that option is used in code as null
-
 class CWInterface:
     """
     @class
