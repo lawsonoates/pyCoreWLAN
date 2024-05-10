@@ -308,7 +308,7 @@ class CWInterface:
         """
         ...
 
-    def interfaceWithName(name: Optional[NSString]) -> CWInterface:
+    def interfaceWithName_(name: Optional[NSString]) -> CWInterface:
         """
         @method
 
@@ -327,7 +327,7 @@ class CWInterface:
         """
         ...
 
-    def initWithInterfaceName(self, name: Optional[NSString]) -> CWInterface:
+    def initWithInterfaceName_(self, name: Optional[NSString]) -> CWInterface:
         """
         @method
 
@@ -346,9 +346,7 @@ class CWInterface:
         """
         ...
 
-        ######### here
-
-    def setPower(self, power: bool, error: Optional[NSError] = None) -> bool:
+    def setPower_error_(self, power: bool, error: Optional[NSError] = None) -> bool:
         """
         @method
         
@@ -367,7 +365,7 @@ class CWInterface:
         """
         ...
 
-    def setWLANChannel(self, channel: CWChannel, error: Optional[NSError] = None) -> bool:
+    def setWLANChannel_error_(self, channel: CWChannel, error: Optional[NSError] = None) -> bool:
         """
         @method
 
@@ -389,7 +387,7 @@ class CWInterface:
         """
         ...
 
-    def setPairwiseMasterKey(self, key: Optional[NSData], error: Optional[NSError] = None) -> bool:
+    def setPairwiseMasterKey_error_(self, key: Optional[NSData], error: Optional[NSError] = None) -> bool:
         """
         @method
 
@@ -412,7 +410,7 @@ class CWInterface:
         """
         ...
 
-    def setWEPKey(self, key: Optional[NSData], flags: CWCipherKeyFlags, index: NSInteger, error: Optional[NSError] = None) -> bool:
+    def setWEPKey_flags_index_error_(self, key: Optional[NSData], flags: CWCipherKeyFlags, index: NSInteger, error: Optional[NSError] = None) -> bool:
         """
         @method
 
@@ -438,7 +436,7 @@ class CWInterface:
         """
         ...
 
-    def scanForNetworksWithSSID(self, ssid: Optional[NSData], error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
+    def scanForNetworksWithSSID_error_(self, ssid: Optional[NSData], error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
         """
         @method
 
@@ -468,7 +466,7 @@ class CWInterface:
         """
         ...
 
-    def scanForNetworksWithSSID_includeHidden(self, ssid: Optional[NSData], includeHidden: bool, error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
+    def scanForNetworksWithSSID_includeHidden_error_(self, ssid: Optional[NSData], includeHidden: bool, error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
         """
         @method
 
@@ -501,7 +499,7 @@ class CWInterface:
         """
         ...
 
-    def scanForNetworksWithName(self, networkName: Optional[NSString], error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
+    def scanForNetworksWithName_error_(self, networkName: Optional[NSString], error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
         """
         @method
 
@@ -531,7 +529,7 @@ class CWInterface:
         """
         ...
 
-    def scanForNetworksWithName_includeHidden(self, networkName: Optional[NSString], includeHidden: bool, error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
+    def scanForNetworksWithName_includeHidden_error_(self, networkName: Optional[NSString], includeHidden: bool, error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
         """
         @method
 
@@ -563,7 +561,7 @@ class CWInterface:
         CLLocationManager
         """
 
-    def associateToNetwork_password(self, network: CWNetwork, password: Optional[NSString], error: Optional[NSError] = None) -> bool:
+    def associateToNetwork_password_error_(self, network: CWNetwork, password: Optional[NSString], error: Optional[NSError] = None) -> bool:
         """
         @method
 
@@ -599,7 +597,7 @@ class CWInterface:
         """
         ...
 
-    def associateToEnterpriseNetwork_identity_username_password(self, network: CWNetwork, identity: Optional[SecIdentityRef], username: Optional[NSString], password: Optional[NSString], error: Optional[NSError] = None) -> bool:
+    def associateToEnterpriseNetwork_identity_username_password_error_(self, network: CWNetwork, identity: Optional[SecIdentityRef], username: Optional[NSString], password: Optional[NSString], error: Optional[NSError] = None) -> bool:
         """
         @method
 
@@ -630,7 +628,7 @@ class CWInterface:
         """
         ...
 
-    def startIBSSModeWithSSID_security_channel_password(self, ssidData: NSData, security: CWIBSSModeSecurity, channel: NSUInteger, password: Optional[NSString], error: Optional[NSError] = None) -> bool:
+    def startIBSSModeWithSSID_security_channel_password_error_(self, ssidData: NSData, security: CWIBSSModeSecurity, channel: NSUInteger, password: Optional[NSString], error: Optional[NSError] = None) -> bool:
         """
         @method
 
@@ -659,7 +657,7 @@ class CWInterface:
         """
         ...
 
-    def commitConfiguration_authorization(self, configuration: CWConfiguration, authorization: Optional[SFAuthorization], error: Optional[NSError] = None) -> bool:
+    def commitConfiguration_authorization_error_(self, configuration: CWConfiguration, authorization: Optional[SFAuthorization], error: Optional[NSError] = None) -> bool:
         """
         @method
 
