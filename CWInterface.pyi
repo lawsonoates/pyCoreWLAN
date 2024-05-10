@@ -2,6 +2,7 @@ from typing import Optional, Set
 
 from .CoreWLANTypes import *
 from .CWChannel import *
+from .CWNetwork import *
 
 ## confirm that option is used in code as null
 
@@ -283,7 +284,7 @@ class CWInterface:
         """
         ...
 
-    def interfaceNames() -> Optional[Set[str]]:
+    def interfaceNames() -> Optional[Set[NSString]]:
         """
         @method
 
@@ -309,7 +310,7 @@ class CWInterface:
         """
         ...
 
-    def interfaceWithName(name: Optional[str]) -> CWInterface:
+    def interfaceWithName(name: Optional[NSString]) -> CWInterface:
         """
         @method
 
@@ -328,7 +329,7 @@ class CWInterface:
         """
         ...
 
-    def initWithInterfaceName(self, name: Optional[str]) -> 'CWInterface':
+    def initWithInterfaceName(self, name: Optional[NSString]) -> CWInterface:
         """
         @method
 
@@ -349,275 +350,340 @@ class CWInterface:
 
         ######### here
 
-    def setPower(self, power: bool, error: Optional[object] = None) -> bool:
+    def setPower(self, power: bool, error: Optional[NSError] = None) -> bool:
         """
+        @method
+        
+        @param power 
+        A BOOL value indicating Wi-Fi power state. Specify YES to turn on the Wi-Fi interface.
+        
+        @param error 
+        An NSError object passed by reference, which upon return will contain the error if an error occurs. 
+        This parameter is optional.
+        
+        @result 
+        Returns YES upon success, or NO if an error occurred.
+        
+        @abstract 
         Sets the Wi-Fi interface power state.
-
-        Args:
-            power (bool): A BOOL value indicating Wi-Fi power state. Specify YES to turn on the Wi-Fi interface.
-            error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
-
-        Returns:
-            bool: YES upon success, or NO if an error occurred.
         """
         ...
 
-    def setWLANChannel(self, channel: 'CWChannel', error: Optional[object] = None) -> bool:
+    def setWLANChannel(self, channel: CWChannel, error: Optional[NSError] = None) -> bool:
         """
+        @method
+
+        @param channel
+        A CWChannel object.
+
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
+
+        @result
+        Returns YES upon success, or NO if an error occurred.
+
+        @abstract 
         Sets the Wi-Fi interface channel.
 
-        Args:
-            channel (CWChannel): A CWChannel object.
-            error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
-
-        Returns:
-            bool: YES upon success, or NO if an error occurred.
+        @discussion 
+        Setting the channel while the interface is associated to a Wi-Fi network is not permitted.
         """
         ...
 
-    def setPairwiseMasterKey(self, key: Optional[bytes], error: Optional[object] = None) -> bool:
+    def setPairwiseMasterKey(self, key: Optional[NSData], error: Optional[NSError] = None) -> bool:
         """
+        @method
+
+        @param key 
+        An NSData object containing the pairwise master key (PMK).
+        Passing nil clear the PMK for the Wi-Fi interface.
+
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
+
+        @result
+        Returns YES upon success, or NO if an error occurred.
+
+        @abstract 
         Sets the Wi-Fi interface pairwise master key (PMK).
 
-        Args:
-            key (Optional[bytes]): An NSData object containing the pairwise master key (PMK). Passing nil clears the PMK for the Wi-Fi interface.
-            error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
-
-        Returns:
-            bool: YES upon success, or NO if an error occurred.
+        @discussion
+        The specified key must be exactly 32 octets.
         """
         ...
 
-    def setWEPKey(self, key: Optional[bytes], flags: CWCipherKeyFlags, index: int, error: Optional[object] = None) -> bool:
+    def setWEPKey(self, key: Optional[NSData], flags: CWCipherKeyFlags, index: NSInteger, error: Optional[NSError] = None) -> bool:
         """
+        @method
+
+        @param key 
+        An NSData object containing the WEP key.
+        Passing nil clears the WEP key for the Wi-Fi interface.
+
+        @param flags 
+        A bitmask indicating which CWCipherKeyFlags to use for the specified WEP key.
+
+        @param index 
+        An NSInteger indicating which default key index (1-4) to use for the specified key.
+
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
+
+        @result
+        Returns YES upon success, or NO if an error occurred.
+
+        @abstract 
         Sets the Wi-Fi interface WEP key.
-
-        Args:
-            key (Optional[bytes]): An NSData object containing the WEP key. Passing nil clears the WEP key for the Wi-Fi interface.
-            flags (CWCipherKeyFlags): A bitmask indicating which CWCipherKeyFlags to use for the specified WEP key.
-            index (int): An NSInteger indicating which default key index (1-4) to use for the specified key.
-            error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
-
-        Returns:
-            bool: YES upon success, or NO if an error occurred.
         """
         ...
 
-    def scanForNetworksWithSSID(self, ssid: Optional[bytes], error: Optional[object] = None) -> Optional[Set[CWNetwork]]:
+    def scanForNetworksWithSSID(self, ssid: Optional[NSData], error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
         """
+        @method
+
+        @param ssid
+        Probe request SSID.  
+        Pass an SSID to perform a directed scan for hidden Wi-Fi networks.
+        This parameter is optional.
+
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
+
+        @result
+        An NSSet of CWNetwork objects, or nil if an error occurs.
+
+        @abstract 
         Performs a scan for Wi-Fi networks and returns scan results to the caller.
 
-        Args:
-            ssid (Optional[bytes]): Probe request SSID. Pass an SSID to perform a directed scan for hidden Wi-Fi networks. This parameter is optional.
-            error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @discussion 
+        This method will block for the duration of the scan.
 
-        Returns:
-            Optional[Set[CWNetwork]]: An NSSet of CWNetwork objects, or None if an error occurs.
+        @note
+        Returned networks will not contain BSSID information unless Location Services is enabled and the user has authorized the calling app to use location services.
+
+        @seealso
+        CLLocationManager
         """
         ...
 
-    def scanForNetworksWithSSID_includeHidden(self, ssid: Optional[bytes], includeHidden: bool, error: Optional[object] = None) -> Optional[Set[CWNetwork]]:
+    def scanForNetworksWithSSID_includeHidden(self, ssid: Optional[NSData], includeHidden: bool, error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
         """
+        @method
+
+        @param ssid
+        Probe request SSID.
+        Pass an SSID to perform a directed scan for hidden Wi-Fi networks.
+        This parameter is optional.
+
+        @param includeHidden
+        Indicate whether or not hidden networks should not be filtered from the returned scan results.
+
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
+
+        @result
+        An NSSet of CWNetwork objects, or nil if an error occurs.
+
+        @abstract
         Performs a scan for Wi-Fi networks and returns scan results to the caller.
 
-        Args:
-            ssid (Optional[bytes]): Probe request SSID. Pass an SSID to perform a directed scan for hidden Wi-Fi networks. This parameter is optional.
-            includeHidden (bool): Indicate whether or not hidden networks should not be filtered from the returned scan results.
-            error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @discussion
+        This method will block for the duration of the scan.
 
-        Returns:
-            Optional[Set[CWNetwork]]: An NSSet of CWNetwork objects, or None if an error occurs.
+        @note
+        Returned networks will not contain BSSID information unless Location Services is enabled and the user has authorized the calling app to use location services.
+
+        @seealso
+        CLLocationManager
         """
         ...
 
-    def scanForNetworksWithName(self, networkName: Optional[str], error: Optional[object] = None) -> Optional[Set[CWNetwork]]:
+    def scanForNetworksWithName(self, networkName: Optional[NSString], error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
         """
+        @method
+
+        @param networkName
+        Probe request SSID, encoded as an UTF-8 string.
+        Pass a networkName to perform a directed scan for hidden Wi-Fi networks.
+        This parameter is optional.
+
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
+
+        @result
+        An NSSet of CWNetwork objects, or nil if an error occurs.
+
+        @abstract
         Performs a scan for Wi-Fi networks and returns scan results to the caller.
 
-        Args:
-            networkName (Optional[str]): Probe request SSID, encoded as an UTF-8 string. Pass a networkName to perform a directed scan for hidden Wi-Fi networks. This parameter is optional.
-            error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @discussion
+        This method will block for the duration of the scan.
 
-        Returns:
-            Optional[Set[CWNetwork]]: An NSSet of CWNetwork objects, or None if an error occurs.
+        @note
+        Returned networks will not contain BSSID information unless Location Services is enabled and the user has authorized the calling app to use location services.
+
+        @seealso
+        CLLocationManager
         """
         ...
 
-    def scanForNetworksWithName_includeHidden(self, networkName: Optional[str], includeHidden: bool, error: Optional[object] = None) -> Optional[Set[CWNetwork]]:
+    def scanForNetworksWithName_includeHidden(self, networkName: Optional[NSString], includeHidden: bool, error: Optional[NSError] = None) -> Optional[Set[CWNetwork]]:
         """
-        Performs a scan for Wi-Fi
+        @method
 
+        @param networkName
+        Probe request SSID, encoded as an UTF-8 string.
+        Pass a networkName to perform a directed scan for hidden Wi-Fi networks.
+        This parameter is optional.
 
-#     def setPower(self, power: bool, error: Optional[object] = None) -> bool:
-#         """
-#         Sets the Wi-Fi interface power state.
+        @param includeHidden
+        Indicate whether or not hidden networks should not be filtered from the returned scan results.
 
-#         Args:
-#             power (bool): A BOOL value indicating Wi-Fi power state. Specify YES to turn on the Wi-Fi interface.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
 
-#         Returns:
-#             bool: YES upon success, or NO if an error occurred.
-#         """
-#         ...
+        @result
+        An NSSet of CWNetwork objects, or nil if an error occurs.
 
-#     def setWLANChannel(self, channel: 'CWChannel', error: Optional[object] = None) -> bool:
-#         """
-#         Sets the Wi-Fi interface channel.
+        @abstract
+        Performs a scan for Wi-Fi networks and returns scan results to the caller.
 
-#         Args:
-#             channel (CWChannel): A CWChannel object.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @discussion
+        This method will block for the duration of the scan.
 
-#         Returns:
-#             bool: YES upon success, or NO if an error occurred.
-#         """
-#         ...
+        @note
+        Returned networks will not contain BSSID information unless Location Services is enabled and the user has authorized the calling app to use location services.
 
-#     def setPairwiseMasterKey(self, key: Optional[bytes], error: Optional[object] = None) -> bool:
-#         """
-#         Sets the Wi-Fi interface pairwise master key (PMK).
+        @seealso
+        CLLocationManager
+        """
 
-#         Args:
-#             key (Optional[bytes]): An NSData object containing the pairwise master key (PMK). Passing nil clears the PMK for the Wi-Fi interface.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+    def associateToNetwork_password(self, network: CWNetwork, password: Optional[NSString], error: Optional[NSError] = None) -> bool:
+        """
+        @method
 
-#         Returns:
-#             bool: YES upon success, or NO if an error occurred.
-#         """
-#         ...
+        @param network
+        The network to which the Wi-Fi interface will associate.
 
-#     def setWEPKey(self, key: Optional[bytes], flags: CWCipherKeyFlags, index: int, error: Optional[object] = None) -> bool:
-#         """
-#         Sets the Wi-Fi interface WEP key.
+        @param password
+        The network passphrase or key. Required for association to WEP, WPA Personal, and WPA2 Personal networks.
 
-#         Args:
-#             key (Optional[bytes]): An NSData object containing the WEP key. Passing nil clears the WEP key for the Wi-Fi interface.
-#             flags (CWCipherKeyFlags): A bitmask indicating which CWCipherKeyFlags to use for the specified WEP key.
-#             index (int): An NSInteger indicating which default key index (1-4) to use for the specified key.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
 
-#         Returns:
-#             bool: YES upon success, or NO if an error occurred.
-#         """
-#         ...
+        @result
+        Returns YES upon success, or NO if an error occurred.
 
-#     def scanForNetworksWithSSID(self, ssid: Optional[bytes], error: Optional[object] = None) -> Optional[Set[CWNetwork]]:
-#         """
-#         Performs a scan for Wi-Fi networks and returns scan results to the caller.
+        @abstract 
+        Associates to a W-Fi network using the specified passphrase.
 
-#         Args:
-#             ssid (Optional[bytes]): Probe request SSID. Pass an SSID to perform a directed scan for hidden Wi-Fi networks. This parameter is optional.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @discussion 
+        This method will block for the duration of the association.
+        """
+        ...
 
-#         Returns:
-#             Optional[Set[CWNetwork]]: An NSSet of CWNetwork objects, or None if an error occurs.
-#         """
-#         ...
+    def disassociate(self) -> None:
+        """
+        @method
 
-#     def scanForNetworksWithSSID_includeHidden(self, ssid: Optional[bytes], includeHidden: bool, error: Optional[object] = None) -> Optional[Set[CWNetwork]]:
-#         """
-#         Performs a scan for Wi-Fi networks and returns scan results to the caller.
+        @abstract 
+        Disassociates from the current Wi-Fi network.
 
-#         Args:
-#             ssid (Optional[bytes]): Probe request SSID. Pass an SSID to perform a directed scan for hidden Wi-Fi networks. This parameter is optional.
-#             includeHidden (bool): Indicate whether or not hidden networks should not be filtered from the returned scan results.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @discussion
+        """
+        ...
 
-#         Returns:
-#             Optional[Set[CWNetwork]]: An NSSet of CWNetwork objects, or None if an error occurs.
-#         """
-#         ...
+    def associateToEnterpriseNetwork_identity_username_password(self, network: CWNetwork, identity: Optional[SecIdentityRef], username: Optional[NSString], password: Optional[NSString], error: Optional[NSError] = None) -> bool:
+        """
+        @method
 
-#     def scanForNetworksWithName(self, networkName: Optional[str], error: Optional[object] = None) -> Optional[Set[CWNetwork]]:
-#         """
-#         Performs a scan for Wi-Fi networks and returns scan results to the caller.
+        @param network
+        The network to which the Wi-Fi interface will associate.
 
-#         Args:
-#             networkName (Optional[str]): Probe request SSID, encoded as an UTF-8 string. Pass a networkName to perform a directed scan for hidden Wi-Fi networks. This parameter is optional.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @param username 
+        The username to use for 802.1X authentication.
 
-#         Returns:
-#             Optional[Set[CWNetwork]]: An NSSet of CWNetwork objects, or None if an error occurs.
-#         """
-#         ...
+        @param password 
+        The password to use for 802.1X authentication.
 
-#     def scanForNetworksWithName_includeHidden(self, networkName: Optional[str], includeHidden: bool, error: Optional[object] = None) -> Optional[Set[CWNetwork]]:
-#         """
-#         Performs a scan for Wi-Fi networks and returns scan results to the caller.
+        @param identity 
+        The identity to use for IEEE 802.1X authentication. Holds the corresponding client certificate.
 
-#         Args:
-#             networkName (Optional[str]): Probe request SSID, encoded as an UTF-8 string. Pass a networkName to perform a directed scan for hidden Wi-Fi networks. This parameter is optional.
-#             includeHidden (bool): Indicate whether or not hidden networks should not be filtered from the returned scan results.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
 
-#         Returns:
-#             Optional[Set[CWNetwork]]: An NSSet of CWNetwork objects, or None if an error occurs.
-#         """
-#         ...
+        @result
+        Returns YES upon success, or NO if an error occurred.
 
-#     def associateToNetwork_password(self, network: CWNetwork, password: Optional[str], error: Optional[object] = None) -> bool:
-#         """
-#         Associates to a Wi-Fi network using the specified passphrase.
+        @abstract
+        Associates to an enterprise W-Fi network using the specified 802.1X credentials.
 
-#         Args:
-#             network (CWNetwork): The network to which the Wi-Fi interface will associate.
-#             password (Optional[str]): The network passphrase or key. Required for association to WEP, WPA Personal, and WPA2 Personal networks.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @discussion
+        This method will block for the duration of the association.
+        """
+        ...
 
-#         Returns:
-#             bool: YES upon success, or NO if an error occurred.
-#         """
-#         ...
+    def startIBSSModeWithSSID_security_channel_password(self, ssidData: NSData, security: CWIBSSModeSecurity, channel: NSUInteger, password: Optional[NSString], error: Optional[NSError] = None) -> bool:
+        """
+        @method
 
-#     def disassociate(self) -> None:
-#         """
-#         Disassociates from the current Wi-Fi network.
-#         """
-#         ...
+        @param ssidData
+        The SSID to use for the IBSS network.
+        Pass nil to use the machine name as the IBSS network name.
 
-#     def associateToEnterpriseNetwork_identity_username_password(self, network: CWNetwork, identity: Optional[SecIdentityRef], username: Optional[str], password: Optional[str], error: Optional[object] = None) -> bool:
-#         """
-#         Associates to an enterprise Wi-Fi network using the specified 802.1X credentials.
+        @param security 
+        The CWIBSSModeSecurity type.
 
-#         Args:
-#             network (CWNetwork): The network to which the Wi-Fi interface will associate.
-#             identity (Optional[SecIdentityRef]): The identity to use for IEEE 802.1X authentication. Holds the corresponding client certificate.
-#             username (Optional[str]): The username to use for 802.1X authentication.
-#             password (Optional[str]): The password to use for 802.1X authentication.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @param channel 
+        The channel on which the IBSS network will be created.
 
-#         Returns:
-#             bool: YES upon success, or NO if an error occurred.
-#         """
-#         ...
+        @param password 
+        The password to be used. This paramter is required for kCWIBSSModeSecurityWEP40 or kCWIBSSModeSecurityWEP104 security types.
 
-#     def startIBSSModeWithSSID_security_channel_password(self, ssidData: bytes, security: CWIBSSModeSecurity, channel: int, password: Optional[str], error: Optional[object] = None) -> bool:
-#         """
-#         Creates a computer-to-computer (IBSS) network.
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
 
-#         Args:
-#             ssidData (bytes): The SSID to use for the IBSS network. Pass nil to use the machine name as the IBSS network name.
-#             security (CWIBSSModeSecurity): The CWIBSSModeSecurity type.
-#             channel (int): The channel on which the IBSS network will be created.
-#             password (Optional[str]): The password to be used. This paramter is required for kCWIBSSModeSecurityWEP40 or kCWIBSSModeSecurityWEP104 security types.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @result
+        Returns YES upon success, or NO if an error occurred.
 
-#         Returns:
-#             bool: YES upon success, or NO if an error occurred.
-#         """
-#         ...
+        @abstract
+        Creates a computer-to-computer (IBSS) network.
+        """
+        ...
 
-#     def commitConfiguration_authorization(self, configuration: CWConfiguration, authorization: Optional[SFAuthorization], error: Optional[object] = None) -> bool:
-#         """
-#         Commits a CWConfiguration for the given Wi-Fi interface.
+    def commitConfiguration_authorization(self, configuration: CWConfiguration, authorization: Optional[SFAuthorization], error: Optional[NSError] = None) -> bool:
+        """
+        @method
 
-#         Args:
-#             configuration (CWConfiguration): The Wi-Fi configuration to commit to disk.
-#             authorization (Optional[SFAuthorization]): An SFAuthorization object to use for authorizing the commit. This parameter is optional.
-#             error (Optional[object]): An NSError object passed by reference, which upon return will contain the error if an error occurs. This parameter is optional.
+        @param configuration
+        The Wi-Fi configuration to commit to disk.
 
-#         Returns:
-#             bool: YES upon success, or NO if an error occurred.
-#         """
-#         ...
+        @param authorization
+        An SFAuthorization object to use for authorizing the commit.
+        This parameter is optional.
+
+        @param error
+        An NSError object passed by reference, which upon return will contain the error if an error occurs.
+        This parameter is optional.
+
+        @result
+        Returns YES upon success, or NO if an error occurred.
+
+        @abstract 
+        Commits a CWConfiguration for the given Wi-Fi interface.
+
+        @discussion 
+        This method requires the caller have root privileges
+        or obtain administrator privileges using the SFAuthorization API.
+        """
+        ...
