@@ -1,6 +1,6 @@
 from typing import Optional, Set
 
-from .CoreWLANTypes import *
+from .FoundationTypes import *
 from .CWChannel import *
 from .CWNetwork import *
 
