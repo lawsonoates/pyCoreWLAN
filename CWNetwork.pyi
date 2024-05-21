@@ -1,6 +1,7 @@
 from typing import Optional
 
 from .CoreWLANTypes import *
+from .CWChannel import *
 
 class CWNetwork:
     """
@@ -143,7 +144,8 @@ class CWNetwork:
         Determine CWNetwork equality.
 
         @discussion
-        CWNetwork objects are considered equal if their corresponding <i>ssidData</i> and <i>bssid</i> properties are equal.
+        CWNetwork objects are considered equal if their corresponding
+        <i>ssidData</i> and <i>bssid</i> properties are equal.
         """
         ...
 
@@ -155,7 +157,8 @@ class CWNetwork:
         A CWSecurity type value.
 
         @result
-        <i>YES</i> if the Wi-Fi device supports the specified security type, <i>NO</i> otherwise.
+        <i>YES</i> if the Wi-Fi device supports the specified security type,
+        <i>NO</i> otherwise.
 
         @abstract 
         Determine which security types a Wi-Fi device supports.
