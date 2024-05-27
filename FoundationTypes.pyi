@@ -15,3 +15,5 @@ CFArrayRef = NewType('CFArrayRef', list)
 CFStringRef = NewType('CFStringRef', str)
 CFDataRef = NewType('CFDataRef', bytes)
 OSStatus = int
+
+CWEventType = NewType('CWEventType', int)

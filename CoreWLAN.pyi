@@ -5,3 +5,4 @@ from .CWNetworkProfile import *
 from .CoreWLANConstants import *
 from .CoreWLANUtil import *
 from .CWConfiguration import *
+from .CWWiFiClient import *
