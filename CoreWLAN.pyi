@@ -3,3 +3,4 @@ from .CWChannel import *
 from .CWInterface import *
 from .CWNetworkProfile import *
 from .CoreWLANConstants import *
+from .CoreWLANUtil import *

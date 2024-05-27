@@ -7,4 +7,10 @@ NSString = NewType('NSString', str)
 NSData = NewType('NSData', bytes)
 NSError = NewType('NSError', Exception)
 
+SecIdentityRef = NewType('SecIdentityRef', object)
+CFArrayRef = NewType('CFArrayRef', list)
+CFStringRef = NewType('CFStringRef', str)
+CFDataRef = NewType('CFDataRef', bytes)
+OSStatus = int
+
 ##### ^^ check those
